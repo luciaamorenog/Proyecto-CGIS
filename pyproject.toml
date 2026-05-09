@@ -1,0 +1,7 @@
+[project]
+name = "mi-app"
+version = "0.1.0"
+dependencies = [
+    "pydantic>=2.13.2",
+    "pymongo",
+]
