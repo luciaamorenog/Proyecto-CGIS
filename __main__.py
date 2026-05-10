@@ -3,6 +3,7 @@ from tkinter import ttk
 
 from datetime import datetime
 from dependencias.database import Database
+from aplicacion.application_manager import ApplicationManager
 from views.paciente_view import PacienteView
 from views.tension_view import TensionView
 from views.bienvenida_view import BienvenidaView
@@ -22,6 +23,7 @@ class App(tk.Tk):
         style.configure("Treeview.Heading", background="#004B63", foreground="white", font=("Arial", 10, "bold"))
 
         self.db_gestor = Database()
+        self.app_manager = ApplicationManager(self.db_gestor)
         
         # Contenedor dinámico
         self.contenedor = tk.Frame(self, bg="#18708C")
@@ -52,23 +54,23 @@ class App(tk.Tk):
 
     def mostrar_pacientes(self):
         self.limpiar_pantalla()
-        PacienteView(self.contenedor, self.db_gestor, on_ver_tensiones=self.mostrar_tension_paciente, on_ir_alta_paciente=self.mostrar_alta_paciente, on_volver_inicio=self.mostrar_bienvenida).pack(fill="both", expand=True)
+        PacienteView(self.contenedor, self.app_manager, on_ver_tensiones=self.mostrar_tension_paciente, on_ir_alta_paciente=self.mostrar_alta_paciente, on_volver_inicio=self.mostrar_bienvenida).pack(fill="both", expand=True)
 
     def mostrar_alta_paciente(self):
         self.limpiar_pantalla()
-        AltaPacienteView(self.contenedor, self.db_gestor, on_volver_lista=self.mostrar_pacientes).pack(fill="both", expand=True)
+        AltaPacienteView(self.contenedor, self.app_manager, on_volver_lista=self.mostrar_pacientes).pack(fill="both", expand=True)
 
     def mostrar_tension(self):
         self.limpiar_pantalla()
-        TensionView(self.contenedor, self.db_gestor, on_volver=self.mostrar_pacientes, on_volver_inicio=self.mostrar_bienvenida, on_ir_alta_tension=self.mostrar_alta_tension).pack(fill="both", expand=True)
+        TensionView(self.contenedor, self.app_manager, on_volver=self.mostrar_pacientes, on_volver_inicio=self.mostrar_bienvenida, on_ir_alta_tension=self.mostrar_alta_tension).pack(fill="both", expand=True)
 
     def mostrar_tension_paciente(self, paciente_id):
         self.limpiar_pantalla()
-        TensionView(self.contenedor, self.db_gestor, paciente_id=paciente_id, on_volver=self.mostrar_pacientes, on_volver_inicio=self.mostrar_bienvenida, on_ir_alta_tension=self.mostrar_alta_tension).pack(fill="both", expand=True)
+        TensionView(self.contenedor, self.app_manager, paciente_id=paciente_id, on_volver=self.mostrar_pacientes, on_volver_inicio=self.mostrar_bienvenida, on_ir_alta_tension=self.mostrar_alta_tension).pack(fill="both", expand=True)
         
     def mostrar_alta_tension(self, paciente_id=None):
         self.limpiar_pantalla()
-        AltaTensionView(self.contenedor, self.db_gestor, paciente_id=paciente_id, on_volver_lista=lambda: self.mostrar_tension_paciente(paciente_id) if paciente_id else self.mostrar_tension()).pack(fill="both", expand=True)
+        AltaTensionView(self.contenedor, self.app_manager, paciente_id=paciente_id, on_volver_lista=lambda: self.mostrar_tension_paciente(paciente_id) if paciente_id else self.mostrar_tension()).pack(fill="both", expand=True)
 
 if __name__ == "__main__":
     app = App()

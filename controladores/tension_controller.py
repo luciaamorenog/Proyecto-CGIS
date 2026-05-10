@@ -4,10 +4,9 @@ from servicios.tension_service import TensionService
 
 
 class TensionController:
-    def __init__(self, db):
-        self.tension_repo = TensionRepository(db)
-        self.paciente_repo = PacienteRepository(db)
-        self.service = TensionService(self.tension_repo, self.paciente_repo)
+    def __init__(self, tension_service, tension_repo):
+        self.tension_repo = tension_repo
+        self.service = tension_service
 
     def crear(self, tension_data: dict):
         return self.service.crear_tension(tension_data)

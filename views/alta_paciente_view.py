@@ -3,9 +3,9 @@ from tkinter import ttk, messagebox
 from controladores.paciente_controller import PacienteController
 
 class AltaPacienteView(tk.Frame):
-    def __init__(self, parent, db, on_volver_lista=None):
+    def __init__(self, parent, app_manager, on_volver_lista=None):
         super().__init__(parent, bg="#18708C")
-        self.controller = PacienteController(db)
+        self.controller = app_manager.paciente_controller
         self.on_volver_lista = on_volver_lista
         
         tk.Label(self, text="NUEVO ALTA DE PACIENTE", font=("Arial", 16, "bold"), bg="#004B63", fg="white").pack(pady=20, fill="x")

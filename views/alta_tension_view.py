@@ -7,9 +7,9 @@ from controladores.tension_controller import TensionController
 from esquemas.tension_schema import TensionCreate
 
 class AltaTensionView(tk.Frame):
-    def __init__(self, parent, db, paciente_id=None, on_volver_lista=None):
+    def __init__(self, parent, app_manager, paciente_id=None, on_volver_lista=None):
         super().__init__(parent, bg="#18708C")
-        self.controller = TensionController(db)
+        self.controller = app_manager.tension_controller
         
         self.paciente_id = paciente_id
         self.on_volver_lista = on_volver_lista

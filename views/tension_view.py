@@ -3,9 +3,9 @@ from tkinter import ttk, messagebox
 from controladores.tension_controller import TensionController
 
 class TensionView(tk.Frame):
-    def __init__(self, parent, db, paciente_id=None, on_volver=None, on_volver_inicio=None, on_ir_alta_tension=None):
+    def __init__(self, parent, app_manager, paciente_id=None, on_volver=None, on_volver_inicio=None, on_ir_alta_tension=None):
         super().__init__(parent, bg="#18708C")
-        self.controller = TensionController(db)
+        self.controller = app_manager.tension_controller
         self.paciente_id_filtro = paciente_id
         self.on_volver = on_volver
         self.on_volver_inicio = on_volver_inicio

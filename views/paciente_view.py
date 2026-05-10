@@ -3,9 +3,9 @@ from tkinter import ttk, messagebox
 from controladores.paciente_controller import PacienteController
 
 class PacienteView(tk.Frame):
-    def __init__(self, parent, db, on_ver_tensiones=None, on_volver_inicio=None, on_ir_alta_paciente=None):
+    def __init__(self, parent, app_manager, on_ver_tensiones=None, on_volver_inicio=None, on_ir_alta_paciente=None):
         super().__init__(parent, bg="#18708C")
-        self.controller = PacienteController(db)
+        self.controller = app_manager.paciente_controller
         self.on_ver_tensiones = on_ver_tensiones
         self.on_volver_inicio = on_volver_inicio
         self.on_ir_alta_paciente = on_ir_alta_paciente

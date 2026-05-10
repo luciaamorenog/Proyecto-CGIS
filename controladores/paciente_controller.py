@@ -4,10 +4,9 @@ from servicios.paciente_service import PacienteService
 
 
 class PacienteController:
-    def __init__(self, db):
-        self.paciente_repo = PacienteRepository(db)
-        self.tension_repo = TensionRepository(db)
-        self.service = PacienteService(self.paciente_repo, self.tension_repo)
+    def __init__(self, paciente_service, tension_repo):
+        self.tension_repo = tension_repo
+        self.service = paciente_service
 
     def crear(self, paciente_data: dict):
         return self.service.crear_paciente(paciente_data)
